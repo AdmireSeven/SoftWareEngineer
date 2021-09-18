@@ -3,11 +3,11 @@ author: Yaqi Zhang
 Function: Keywords Extracting
 Email: admireseven@163.com
 '''
-import cProfile
-import os
+
 import re
 from CommentReplace import replace_comment
 from SpaceReplace import replace_space
+
 
 class Stack(object):
     def __init__(self):
@@ -31,7 +31,6 @@ kw_list = ['auto','break','case','char','const','continue','default','do',
           'static','struct','switch','typedef','union','unsigned',
           'void','volatile','while']
 
-
 def kw_num():
     Count = {}
     for word in kw_list:
@@ -50,7 +49,7 @@ def kw_num():
 def switch_num():
     switch_num = 0
     switch_flag = 0  # 标记此时正在记数一组内的case
-    case_num = [0,0]
+    case_num = []
     if line.count('switch') == 0:
         print('No switch')
         return 0
@@ -59,6 +58,7 @@ def switch_num():
         if kw == 'switch':
             switch_num += 1
             switch_flag = 1
+            case_num.append(0)
         if switch_flag == 1 and kw == 'case':
             #print(switch_num)
             case_num[switch_num-1] += 1
@@ -99,13 +99,14 @@ def if_else_elseif_num():
     print('if-elif-else num: {}'.format(ifelifelse_num))
 
 #输入代码文件路径及完成等级(1,2,3,4)
-print("Please input one path:(eg:D:/Dev-cpp/example.cpp)")
+print("Please input one path:(eg:)")
 path = input()
 print("Please input the level you want(1,2,3,4)")
 level = int(input())
 
 reg = r'\b[a-zA-Z]+\b' #正则表达式匹配英文单词
 # 正则表达式匹配所有符合要求的值，返回一个列表
+#path = 'D:/Dev-cpp/example.cpp'
 text = replace_comment(path)
 line = re.findall(reg, text)
 if level == 1:
@@ -114,4 +115,3 @@ elif level == 2:
     switch_num()
 else:
     if_else_elseif_num()
-
