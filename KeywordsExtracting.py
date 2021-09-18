@@ -50,7 +50,7 @@ def kw_num():
 def switch_num():
     switch_num = 0
     switch_flag = 0  # 标记此时正在记数一组内的case
-    case_num = 0
+    case_num = [0,0]
     if line.count('switch') == 0:
         print('No switch')
         return 0
@@ -60,11 +60,11 @@ def switch_num():
             switch_num += 1
             switch_flag = 1
         if switch_flag == 1 and kw == 'case':
-            case_num += 1
-        elif switch_flag == 1 and kw == 'default':
-            print('Case num for No.{} switch: {}'.format(switch_num, case_num))
-            switch_flag = 0
-            case_num = 0
+            #print(switch_num)
+            case_num[switch_num-1] += 1
+    for i in range(len(case_num)):
+        print('Case num for No.{} switch: {}'.format(i+1, case_num[i]))
+
 
 def if_else_elseif_num():
     # 将else if处理为elseif
@@ -99,7 +99,7 @@ def if_else_elseif_num():
     print('if-elif-else num: {}'.format(ifelifelse_num))
 
 #输入代码文件路径及完成等级(1,2,3,4)
-print("Please input one path:")
+print("Please input one path:(eg:D:/Dev-cpp/example.cpp)")
 path = input()
 print("Please input the level you want(1,2,3,4)")
 level = int(input())
