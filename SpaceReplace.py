@@ -9,8 +9,8 @@ reg = r"\be.*?f\b"
 def replace_space(text):
     '''
     替换注释
-    :param text: 字符串
-    :return: 替换注释（字符串）后的str
+    :param text: str
+    :return: 替换空格后的str
     '''
     comment = re.finditer(reg,text)
     for match in comment:
